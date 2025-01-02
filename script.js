@@ -60,6 +60,8 @@ function toggleTaskCompletion(event) {
 function deleteTask(event) {
     const taskItem = event.target.parentElement; // Get the parent <li>
     taskList.removeChild(taskItem); // Remove the task from the list
+
+    saveTasks(); // Save after deleting a task
 };
 
 function saveTasks() {
