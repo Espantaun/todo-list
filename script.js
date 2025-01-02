@@ -92,6 +92,12 @@ function loadTasks() {
         const taskLabel = document.createElement('span');
         taskLabel.textContent = task.text;
 
+        // Create the "Edit" button
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Edit';
+        editBtn.style.marginLeft = '10px';
+        editBtn.addEventListener('click', () => editTask(newTask, taskLabel));
+        
         // Create the delete button
         const deleteBtn = document.createElement('button');
         deleteBtn.textContent = 'Delete';
@@ -101,6 +107,7 @@ function loadTasks() {
         // Assemble the task item
         newTask.appendChild(checkbox);
         newTask.appendChild(taskLabel);
+        newTask.appendChild(editBtn);
         newTask.appendChild(deleteBtn);
 
         // Append the task to the list
@@ -134,9 +141,16 @@ function editTask(taskItem, taskLabel) {
         // Update the task label
         taskLabel.textContent = updatedText;
 
-        // Restore the task label and buttons
+        // Restore the task label
         taskItem.replaceChild(taskLabel, editInput);
-        taskItem.replaceChild(taskItem.querySelector('button'), saveBtn);
+
+        // Restore the "Edit" button
+        const newEditBtn = document.createElement('button');
+        newEditBtn.textContent = "Edit";
+        newEditBtn.style.marginLeft = '10px';
+        newEditBtn.addEventListener('click', () => editTask(taskItem, taskLabel));
+        
+        taskItem.replaceChild(newEditBtn, saveBtn); // Replace the "save" button with "Edit" button
 
         // Save to localStorage
         saveTasks();
