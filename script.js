@@ -124,7 +124,23 @@ function editTask(taskItem, taskLabel) {
     taskItem.replaceChild(saveBtn, taskItem.querySelector('button'));
 
     // Handle save action
-    
+    saveBtn.addEventListener('click', () => {
+        const updatedText = editInput.value.trim();
+        if (updatedText === '') {
+            alert('Task cannot be empty.');
+            return;
+        }
+
+        // Update the task label
+        taskLabel.textContent = updatedText;
+
+        // Restore the task label and buttons
+        taskItem.replaceChild(taskLabel, editInput);
+        taskItem.replaceChild(taskItem.querySelector('button'), saveBtn);
+
+        // Save to localStorage
+        saveTasks();
+    })
 }
 
 loadTasks()
